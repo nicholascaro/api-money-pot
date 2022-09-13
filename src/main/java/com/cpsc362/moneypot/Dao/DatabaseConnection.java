@@ -62,17 +62,30 @@ public class DatabaseConnection {
     }
 
     public Pot findOneWithId(String id){
-        Pot pot;
-        pot = moneyPotsCollection.find(eq("_id", id))
-                .first();
-        return pot;
+        try {
+            Pot pot;
+            pot = moneyPotsCollection.find(eq("_id", id))
+                    .first();
+            return pot;
+        } 
+        catch (MongoException mongoException){
+            System.out.println(mongoException.getMessage());
+            return null;
+        }
     }
 
+
     public Pot findOneWithName(String potName){
-        Pot pot;
-        pot = moneyPotsCollection.find(eq("pot_name", potName))
+        try {
+            Pot pot;
+            pot = moneyPotsCollection.find(eq("pot_name", potName))
                 .first();
-        return pot;
+            return pot;
+        } 
+        catch (MongoException mongoException){
+            System.out.println(mongoException.getMessage());
+            return null;
+        }
     }
 
 

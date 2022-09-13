@@ -26,8 +26,10 @@ public class MoneyPot {
         }
     }
 
-    //TODO write findMoneyPot
-    // input -> id
-    // output -> Pot Object
+    public Pot findMoneyPot(String id){
+ 
+        return databaseConnection.findOneWithId(id);
+    }
+
 
 }
