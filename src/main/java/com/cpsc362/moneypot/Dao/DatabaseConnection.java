@@ -62,9 +62,10 @@ public class DatabaseConnection {
     }
 
     public Pot findOneWithId(String id){
+        Bson queryId = eq("_id", new ObjectId(id));
         try {
             Pot pot;
-            pot = moneyPotsCollection.find(eq("_id", id))
+            pot = moneyPotsCollection.find(queryId)
                     .first();
             return pot;
         } 
