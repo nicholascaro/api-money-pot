@@ -24,6 +24,4 @@ public class MoneyPotAPI {
     }
 
     //TODO write find end-point
-
-
 }
