@@ -26,8 +26,11 @@ public class MoneyPot {
         }
     }
 
-    //TODO write findMoneyPot
-    // input -> id
-    // output -> Pot Object
+    public Pot findMoneyPot(Map<String, Object> requestParam){
+        String id = requestParam.get("_id").toString();
+        Pot retrievedPot = databaseConnection.findOneWithId(id);
+        System.out.println(retrievedPot.toString());
+        return retrievedPot;
+    }
 
 }
