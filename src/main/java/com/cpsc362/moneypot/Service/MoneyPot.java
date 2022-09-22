@@ -32,4 +32,8 @@ public class MoneyPot {
         return retrievedPot;
     }
 
+    public int getNumberOfPots() {
+        return databaseConnection.getNumberOfPots();
+    }
+
 }

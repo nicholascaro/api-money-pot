@@ -15,10 +15,27 @@ class MoneyPotTest {
 
     @Test
     void deleteMoneyPot() {
+        int prev = moneyPot.getNumberOfPots();
+
+        Map<String, Object> input = new HashMap<String, Object>();
+        input.put("_id", "631c4bb4b0f0c21ab6c67081");
+        moneyPot.deleteMoneyPot(input);
+
+        int post = moneyPot.getNumberOfPots();
+
+        assertEquals(1, prev - post);
     }
 
     @Test
     void addMoneyPot() {
+        int prev = moneyPot.getNumberOfPots();
+
+        Pot potModel = new Pot();
+        moneyPot.addMoneyPot(potModel);
+        
+        int after = moneyPot.getNumberOfPots();
+
+        assertEquals(1, after - prev);
     }
 
     @Test

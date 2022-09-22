@@ -89,5 +89,10 @@ public class DatabaseConnection {
         }
     }
 
+    // function that gets size of database
+    public int getNumberOfPots(){
+        return (int)moneyPotsCollection.countDocuments();
+    }
+
 
 }

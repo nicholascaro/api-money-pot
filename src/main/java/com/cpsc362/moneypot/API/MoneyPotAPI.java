@@ -26,7 +26,7 @@ public class MoneyPotAPI {
     //TODO write find end-point
     @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, path = "/find")
-    public Pot createPot (@RequestBody Map<String, Object> requestBodyParam) {
+    public Pot findPot (@RequestBody Map<String, Object> requestBodyParam) {
         return moneyPot.findMoneyPot(requestBodyParam);
     }
 
