@@ -7,10 +7,14 @@ import lombok.AllArgsConstructor;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import lombok.NonNull;
 
+import javax.servlet.http.Part;
 import java.util.Date;
 
 @AllArgsConstructor
 public class Participant {
+
+    @BsonProperty(value = "index")
+    private String index;
 
     @BsonProperty(value = "name")
     private String name;
@@ -19,13 +23,19 @@ public class Participant {
     private Integer position;
 
     @BsonProperty(value = "date")
-    private Date date;
+    private String date;
 
 
     public Participant(){
 
     }
 
+    public String getIndex() {return index;}
+
+    public Participant setIndex(String index){
+        this.index = index;
+        return this;
+    }
     public String getName(){
         return name;
     }
@@ -44,11 +54,11 @@ public class Participant {
         return this;
     }
 
-    public Date getDate(){
+    public String getDate(){
         return date;
     }
 
-    public Participant setDate(Date date){
+    public Participant setDate(String date){
         this.date = date;
         return this;
     }
