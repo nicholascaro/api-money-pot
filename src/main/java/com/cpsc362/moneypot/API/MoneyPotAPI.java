@@ -23,7 +23,6 @@ public class MoneyPotAPI {
         return moneyPot.addMoneyPot(potModel);
     }
 
-    //TODO write find end-point
     @CrossOrigin
     @RequestMapping(method = RequestMethod.GET, path = "/find")
     public Pot createPot (@RequestBody Map<String, Object> requestBodyParam) {
