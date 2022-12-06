@@ -1,10 +1,8 @@
 package com.cpsc362.moneypot.Dao;
 
 import com.cpsc362.moneypot.Dao.models.Pot;
-import com.mongodb.BasicDBObject;
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
-import com.mongodb.MongoException;
+import com.cpsc362.moneypot.Models.Participant;
+import com.mongodb.*;
 import com.mongodb.client.*;
 import com.mongodb.client.result.DeleteResult;
 import org.bson.Document;
@@ -12,6 +10,11 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
+
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.util.*;
 
 import static com.mongodb.client.model.Filters.eq;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
@@ -44,19 +47,45 @@ public class DatabaseConnection {
     //TODO change input to pot_name for deletePot
     public Boolean deletePot (String name){
         System.out.println(name);
-//        Bson query = eq("pot_name", name);
         Bson queryId = eq("_id", new ObjectId(name));
         DeleteResult result = moneyPotsCollection.deleteOne(queryId);
         System.out.println("Deleted document count: " + result.getDeletedCount());
         return result.getDeletedCount() == 1;
     }
 
-    public Boolean insertOne(Pot newPotModel){
+    public static List<?> convertObjectToList(Object obj) {
+        List<?> list = new ArrayList<>();
+        if (obj.getClass().isArray()) {
+            list = Arrays.asList((Object[])obj);
+        } else if (obj instanceof Collection) {
+            list = new ArrayList<>((Collection<?>)obj);
+        }
+        return list;
+    }
+
+    public Boolean insertOne(Map<String, Object> newPotModel) {
+        Pot newPot = new Pot();
+        newPot.setPotName(newPotModel.get("pot_name").toString());
+        newPot.setPotOrganizer(newPotModel.get("pot_organizer").toString());
+        newPot.setContributionAmount(Integer.valueOf(newPotModel.get("contribution_amount").toString()));
+        newPot.setTotalPotAmount(Integer.valueOf(newPotModel.get("total_pot_amount").toString()));
+        ArrayList<Participant> participantArrayList= new ArrayList<>();
+        for (Object i: convertObjectToList(newPotModel.get("participants"))){
+            Participant participant = new Participant();
+            Map<String, Object> entry = (Map<String, Object>) i;
+            participant.setIndex(entry.get("index").toString());
+            participant.setName(entry.get("name").toString());
+            participant.setPosition(Integer.valueOf(entry.get("position").toString()));
+            participant.setDate((entry.get("date").toString()));
+            participantArrayList.add(participant);
+        }
+        newPot.setParticipantArrayList(participantArrayList);
+        System.out.println(newPot);
         try {
-            moneyPotsCollection.insertOne(newPotModel);
+            moneyPotsCollection.insertOne(newPot);
             return true;
-        } catch (MongoException mongoException){
-            System.out.println(mongoException.getMessage());
+        } catch (MongoException e) {
+            System.out.println(e.getMessage());
             return false;
         }
     }

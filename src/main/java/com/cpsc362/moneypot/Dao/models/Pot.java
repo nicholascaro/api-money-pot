@@ -2,6 +2,7 @@ package com.cpsc362.moneypot.Dao.models;
 
 
 import com.cpsc362.moneypot.Models.Participant;
+import com.mongodb.DBObject;
 import lombok.NonNull;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.types.ObjectId;
@@ -28,11 +29,22 @@ public class Pot {
     @BsonProperty(value = "participants")
     private ArrayList<Participant> participantArrayList;
 
+//    @BsonProperty(value = "participants")
+//    private ArrayList<DBObject> participantArrayList1;
+
     public Pot() {
     }
     public ArrayList<Participant> getParticipantArrayList(){
         return participantArrayList;
     }
+//    public ArrayList<DBObject> getParticipantArrayList1(){
+//        return participantArrayList1;
+//    }
+
+//    public Pot setParticipantArrayList1(ArrayList<DBObject> participantArrayList1){
+//        this.participantArrayList1 = participantArrayList1;
+//        return this;
+//    }
 
     public Pot setParticipantArrayList(ArrayList<Participant> participantArrayList){
         this.participantArrayList = participantArrayList;

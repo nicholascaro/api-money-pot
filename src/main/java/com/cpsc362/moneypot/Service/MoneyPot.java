@@ -16,18 +16,18 @@ public class MoneyPot {
         } else { return "Money Pot " + id + " could not be found."; }
     }
 
-    public String addMoneyPot(Pot pot){
-        if (databaseConnection.insertOne(pot)){
-            Pot retrievedPot = databaseConnection.findOneWithName(pot.getPotName());
+    public String addMoneyPot(Map<String, Object> requestParam){
+        if (databaseConnection.insertOne(requestParam)){
+            Pot retrievedPot = databaseConnection.findOneWithName(requestParam.get("pot_name").toString());
             String id = retrievedPot.getId().toString();
-            return "Money Pot has been created with ID " + id;
+            return "Money Pot with name " + requestParam.get("pot_name").toString() + " has the following id: " + id;
         } else {
             return "Error adding Pot to database.Try Again.";
         }
     }
 
-    public Pot findMoneyPot(Map<String, Object> requestParam){
-        String id = requestParam.get("_id").toString();
+    public Pot findMoneyPot(String id){
+//        String id = requestParam.get("_id").toString();
         Pot retrievedPot = databaseConnection.findOneWithId(id);
         System.out.println(retrievedPot.toString());
         return retrievedPot;
