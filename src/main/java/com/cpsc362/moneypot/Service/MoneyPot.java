@@ -28,8 +28,9 @@ public class MoneyPot {
 
     public Pot findMoneyPot(Map<String, Object> requestParam){
         String id = requestParam.get("_id").toString();
-
-        return databaseConnection.findOneWithId(id);
+        Pot retrievedPot = databaseConnection.findOneWithId(id);
+        System.out.println(retrievedPot.toString());
+        return retrievedPot;
     }
 
 }
